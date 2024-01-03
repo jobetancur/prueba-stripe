@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible"
+          content="ie=edge">
+    <title>Checkout</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            background-color: #eaeaea;
+            padding: 20px;
+            min-height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #checkout-button {
+            background-color: #6772E5;
+            color: #FFF;
+            padding: 8px 12px;
+            border: 0;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            transition: 0.5s;
+        }
+        #checkout-button:hover {
+            background-color: #7795f8;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <button id="checkout-button">Pay</button>
+
+    <script>
+        const button = document.querySelector("#checkout-button");
+
+        button.addEventListener("click", async () => {
+            const res = await fetch("/create-checkout-session", {
+                method: "POST",
+            })
+            const data = await res.json();
+            console.log(data);
+            window.location.href = data.url;
+        });
+    </script>
+</body>
+</html>
